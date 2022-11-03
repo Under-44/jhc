@@ -20,7 +20,7 @@ create_path("folder/file.txt", Some("Hello, world!"));
  ```
 
 */
-pub fn create_path(path: &str, content: Option<&str>) {
+pub fn create_path(path: &str, content: Option<&str>) -> Result<(), std::io::Error>{
     //  ↓ split so we can pop last for creating folders
     let file_path = path.split("/").collect::<Vec<&str>>();
     //  ↓ get file name at end of path for bellow
@@ -31,17 +31,17 @@ pub fn create_path(path: &str, content: Option<&str>) {
     // ↓ create folders
     std::fs::DirBuilder::new()
         .recursive(true)
-        .create(&folder)
-        .unwrap();
+        .create(&folder)?;
 
     // ↓ create file
     let mut file = std::fs::OpenOptions::new()
         .write(true)
         .create(true)
-        .open(path)
-        .unwrap();
+        .open(path)?;
 
     use std::io::Write;
     //                     ↓ if none default to no write
-    file.write_all(content.unwrap_or("").as_bytes()).unwrap();
+    file.write_all(content.unwrap_or("").as_bytes())?;
+
+    Ok(())
 }
