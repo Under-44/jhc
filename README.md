@@ -1,6 +1,4 @@
-# jhc == (Javascript, HTML, CSS) or (Jacked, Hot, Carved)
-
-simple file initializer tool written in rust.
+## jhc == (Javascript, HTML, CSS) or (Jacked, Hot, Carved)
 
 ### example
 ```rust
